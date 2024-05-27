@@ -30,6 +30,14 @@ public class ContactHelper extends HelperBase{
         click(By.cssSelector(".left:nth-child(8) > input"));
     }
 
+    public void initContactModification(){
+        click(By.cssSelector(".center:nth-child(8) img"));
+    }
+
+    public void submitContactModification(){
+        click(By.name("update"));
+    }
+
     public void closeAlertDeletion(){
         driver.switchTo().alert().accept();
     }
