@@ -22,6 +22,18 @@ public class ContactHelper extends HelperBase{
         click(By.name("submit"));
     }
 
+    public void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    public void deleteSelectedContacts(){
+        click(By.cssSelector(".left:nth-child(8) > input"));
+    }
+
+    public void closeAlertDeletion(){
+        driver.switchTo().alert().accept();
+    }
+
     public void returnToHomePage() {
         click(By.linkText("home page"));
     }
