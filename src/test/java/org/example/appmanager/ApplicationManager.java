@@ -33,7 +33,7 @@ public class ApplicationManager {
 
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
-        driver.get("http://localhost/addressbook/group.php");
+        driver.get("http://localhost/addressbook");
         driver.manage().window().setSize(new Dimension(1604, 865));
 
         groupHelper = new GroupHelper(driver);
