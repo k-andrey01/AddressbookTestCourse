@@ -31,7 +31,7 @@ public class ApplicationManager {
             driver = new InternetExplorerDriver();
         }
 
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
         driver.get("http://localhost/addressbook/group.php");
         driver.manage().window().setSize(new Dimension(1604, 865));
