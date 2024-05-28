@@ -3,22 +3,25 @@ import org.example.model.GroupData;
 import org.junit.Test;
 import org.testng.Assert;
 
+import java.util.List;
+
 public class DeleteGroupTest extends TestBase {
 
   @Test
   public void testDeleteGroup() {
     app.getNavigationHelper().goToGroupPage();
-    int before = app.getGroupHelper().getGroupCount();
 
     if (! app.getGroupHelper().isWhereAGroup()){
       app.getGroupHelper().createGroup(new GroupData("test1", null, null));
     }
-    app.getGroupHelper().selectGroup(before - 1);
+    List<GroupData> before = app.getGroupHelper().getGroupList();
+
+    app.getGroupHelper().selectGroup(before.size() - 1);
     app.getGroupHelper().deleteSelectedGroups();
     app.getGroupHelper().returnToGroupPage();
 
-    int after = app.getGroupHelper().getGroupCount();
-    Assert.assertEquals(after, before - 1);
+    List<GroupData> after = app.getGroupHelper().getGroupList();
+    Assert.assertEquals(after.size(), before.size() - 1);
   }
 
 }
