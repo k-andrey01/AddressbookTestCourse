@@ -4,6 +4,7 @@ import org.example.model.GroupData;
 import org.junit.Test;
 import org.testng.Assert;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
@@ -30,6 +31,9 @@ public class GroupModificationTest extends TestBase{
 
         before.remove(before.size() - 1);
         before.add(group);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+        Comparator<? super GroupData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before, after);
     }
 }

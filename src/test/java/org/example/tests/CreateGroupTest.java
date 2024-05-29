@@ -3,7 +3,7 @@ import org.example.model.GroupData;
 import org.junit.Test;
 import org.testng.Assert;
 
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 
 public class CreateGroupTest extends TestBase {
@@ -19,9 +19,11 @@ public class CreateGroupTest extends TestBase {
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size() + 1);
 
-    group.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+    Comparator<? super GroupData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
     before.add(group);
-    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
   }
 
 }
