@@ -4,7 +4,11 @@ import org.example.model.ContactData;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase{
     public ContactHelper(WebDriver driver) {
@@ -62,5 +66,21 @@ public class ContactHelper extends HelperBase{
         fillContactForm(contact, creation);
         submitContactCreation();
         returnToHomePage();
+    }
+
+    public int getContactCount(){
+        return driver.findElements(By.name("selected[]")).size();
+    }
+
+    public List<ContactData> getContactList(){
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = driver.findElements(By.name("entry"));
+        for (WebElement element: elements){
+            String name = element.getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData("user1", "test", "user", "Казань Гвардейская 14 127", "кre@we.re", "89324511903", "group3");
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }
