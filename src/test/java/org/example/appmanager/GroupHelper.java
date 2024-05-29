@@ -82,4 +82,10 @@ public class GroupHelper extends HelperBase{
         }
         return groups;
     }
+
+    public void deleteGroup(int index) {
+        selectGroup(index);
+        deleteSelectedGroups();
+        returnToGroupPage();
+    }
 }
