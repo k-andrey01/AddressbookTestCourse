@@ -3,6 +3,7 @@ import org.example.model.GroupData;
 import org.junit.Test;
 import org.testng.Assert;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class CreateGroupTest extends TestBase {
@@ -12,10 +13,21 @@ public class CreateGroupTest extends TestBase {
     app.getNavigationHelper().goToGroupPage();
     List<GroupData> before = app.getGroupHelper().getGroupList();
 
-    app.getGroupHelper().createGroup(new GroupData("group3", null, null));
+    GroupData group = new GroupData("group3", null, null);
+    app.getGroupHelper().createGroup(group);
 
     List<GroupData> after = app.getGroupHelper().getGroupList();
     Assert.assertEquals(after.size(), before.size() + 1);
+
+    int max = Integer.MIN_VALUE;
+    for (GroupData g: after){
+      if (g.getId() > max){
+        max = g.getId();
+      }
+    }
+    group.setId(max);
+    before.add(group);
+    Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
   }
 
 }
