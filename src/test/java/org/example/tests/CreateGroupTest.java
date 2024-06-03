@@ -3,26 +3,23 @@ import org.example.model.GroupData;
 import org.junit.Test;
 import org.testng.Assert;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class CreateGroupTest extends TestBase {
 
   @Test
   public void testGroupCreation() {
     app.getNavigationHelper().goToGroupPage();
-    List<GroupData> before = app.getGroupHelper().getGroupList();
+    Set<GroupData> before = app.getGroupHelper().getGroupSet();
 
     GroupData group = new GroupData().withGroupName("group1");
     app.getGroupHelper().createGroup(group);
 
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    Set<GroupData> after = app.getGroupHelper().getGroupSet();
     Assert.assertEquals(after.size(), before.size() + 1);
 
-    Comparator<? super GroupData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
+    group.withId(after.stream().mapToInt(g -> g.getId()).max().getAsInt());
     before.add(group);
-    before.sort(byId);
-    after.sort(byId);
     Assert.assertEquals(before, after);
   }
 

@@ -4,7 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.testng.Assert;
 
-import java.util.List;
+import java.util.Set;
 
 public class DeleteGroupTest extends TestBase {
 
@@ -18,14 +18,15 @@ public class DeleteGroupTest extends TestBase {
 
   @Test
   public void testDeleteGroup() {
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    int index = before.size() - 1;
-    app.getGroupHelper().deleteGroup(index);
+    Set<GroupData> before = app.getGroupHelper().getGroupSet();
 
-    List<GroupData> after = app.getGroupHelper().getGroupList();
+    GroupData deletedGroup = before.iterator().next();
+    app.getGroupHelper().deleteGroup(deletedGroup);
+
+    Set<GroupData> after = app.getGroupHelper().getGroupSet();
     Assert.assertEquals(after.size(), before.size() - 1);
 
-    before.remove(index);
+    before.remove(deletedGroup);
     Assert.assertEquals(before, after);
   }
 

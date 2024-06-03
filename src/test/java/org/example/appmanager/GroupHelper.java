@@ -5,8 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase{
 
@@ -36,8 +37,8 @@ public class GroupHelper extends HelperBase{
         click(By.name("delete"));
     }
 
-    public void selectGroup(int index) {
-        driver.findElements(By.name("selected[]")).get(index).click();
+    private void selectGroupById(int id) {
+        driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void initGroupModification() {
@@ -55,8 +56,8 @@ public class GroupHelper extends HelperBase{
         returnToGroupPage();
     }
 
-    public void modifyGroup(int index, GroupData group) {
-        selectGroup(index);
+    public void modifyGroup(GroupData group) {
+        selectGroupById(group.getId());
         initGroupModification();
         fillGroupForm(group);
         submitGroupModification();
@@ -71,8 +72,8 @@ public class GroupHelper extends HelperBase{
         return driver.findElements(By.name("selected[]")).size();
     }
 
-    public List<GroupData> getGroupList() {
-        List<GroupData> groups = new ArrayList<GroupData>();
+    public Set<GroupData> getGroupSet() {
+        Set<GroupData> groups = new HashSet<GroupData>();
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
         for (WebElement element: elements){
             String name = element.getText();
@@ -82,8 +83,8 @@ public class GroupHelper extends HelperBase{
         return groups;
     }
 
-    public void deleteGroup(int index) {
-        selectGroup(index);
+    public void deleteGroup(GroupData deletedGroup) {
+        selectGroupById(deletedGroup.getId());
         deleteSelectedGroups();
         returnToGroupPage();
     }
