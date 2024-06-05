@@ -11,30 +11,9 @@ public class ContactData {
     private String address;
     private String email;
     private String mobilePhone;
-
+    private String workPhone;
     private String group;
-
-    public ContactData(String firstName, String middleName, String lastName, String address, String email, String mobilePhone, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.address = address;
-        this.email = email;
-        this.mobilePhone = mobilePhone;
-        this.group = group;
-    }
-
-    public ContactData(int id, String firstName, String middleName, String lastName, String address, String email, String mobilePhone, String group) {
-        this.id = id;
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.address = address;
-        this.email = email;
-        this.mobilePhone = mobilePhone;
-        this.group = group;
-    }
+    private String homePhone;
 
     public String getFirstName() {
         return firstName;
@@ -68,14 +47,70 @@ public class ContactData {
         return id;
     }
 
-    public void setId(int id) {
+    public String getWorkPhone() {
+        return workPhone;
+    }
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public ContactData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public ContactData withFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public ContactData withMiddleName(String middleName) {
+        this.middleName = middleName;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    public ContactData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
     }
 
     @Override
     public String toString() {
         return "ContactData{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
@@ -85,11 +120,11 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName);
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(id, firstName, middleName, lastName);
     }
 }

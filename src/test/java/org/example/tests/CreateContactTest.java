@@ -1,30 +1,26 @@
 package org.example.tests;
 
 import org.example.model.ContactData;
+import org.example.model.Contacts;
 import org.junit.Test;
-import org.testng.Assert;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-public class CreateContactTest extends TestBase{
+public class CreateContactTest extends TestBase {
 
     @Test
-    public void testContactCreation(){
+    public void testContactCreation() {
         app.getNavigationHelper().goToHomePage();
-        List<ContactData> before = app.getContactHelper().getContactList();
+        Contacts before = app.getContactHelper().getAllContacts();
 
+        ContactData contact = new ContactData().withFirstName("user1").withLastName("user").withGroup("group1");
         app.getNavigationHelper().goToContactPage();
-        ContactData contact = new ContactData("user1", "test", "user", "Казань Гвардейская 14 127", "кre@we.re", "89324511903", "group1");
         app.getContactHelper().createContact(contact, true);
+        assertThat(app.getContactHelper().getContactCount(), equalTo(before.size() + 1));
 
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() + 1);
-
-        Comparator<? super ContactData> byId = (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
-        before.add(contact);
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        Contacts after = app.getContactHelper().getAllContacts();
+        assertThat(after, equalTo(
+                before.withAdded(contact.withId(after.stream().mapToInt(g -> g.getId()).max().getAsInt()))));
     }
 }

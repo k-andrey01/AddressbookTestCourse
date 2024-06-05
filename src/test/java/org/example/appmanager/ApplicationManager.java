@@ -23,11 +23,11 @@ public class ApplicationManager {
     }
 
     public void init() {
-        if (browser.equals(Browser.EDGE.browserName())){
+        if (browser.equals(Browser.EDGE.browserName())) {
             driver = new EdgeDriver();
-        } else if (browser.equals(Browser.CHROME.browserName())){
+        } else if (browser.equals(Browser.CHROME.browserName())) {
             driver = new ChromeDriver();
-        } else if (browser.equals(Browser.IE.browserName())){
+        } else if (browser.equals(Browser.IE.browserName())) {
             driver = new InternetExplorerDriver();
         }
 
@@ -56,7 +56,7 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public ContactHelper getContactHelper(){
+    public ContactHelper getContactHelper() {
         return contactHelper;
     }
 }

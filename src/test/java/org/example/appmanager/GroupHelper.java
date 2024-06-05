@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class GroupHelper extends HelperBase{
+public class GroupHelper extends HelperBase {
 
     public GroupHelper(WebDriver driver) {
         super(driver);
@@ -76,13 +76,13 @@ public class GroupHelper extends HelperBase{
     private Groups groupCache = null;
 
     public Groups getAllGroups() {
-        if (groupCache != null){
+        if (groupCache != null) {
             return new Groups(groupCache);
         }
 
         groupCache = new Groups();
         List<WebElement> elements = driver.findElements(By.cssSelector("span.group"));
-        for (WebElement element: elements){
+        for (WebElement element : elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
             groupCache.add(new GroupData().withId(id).withGroupName(name));

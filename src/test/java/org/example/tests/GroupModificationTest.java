@@ -8,18 +8,18 @@ import org.junit.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class GroupModificationTest extends TestBase{
+public class GroupModificationTest extends TestBase {
 
     @Before
-    public void ensurePreconditions(){
+    public void ensurePreconditions() {
         app.getNavigationHelper().goToGroupPage();
-        if (!app.getGroupHelper().isWhereAGroup()){
+        if (!app.getGroupHelper().isWhereAGroup()) {
             app.getGroupHelper().createGroup(new GroupData().withGroupName("test1"));
         }
     }
 
     @Test
-    public void testGroupModification(){
+    public void testGroupModification() {
         Groups before = app.getGroupHelper().getAllGroups();
 
         GroupData modifiedGroup = before.iterator().next();

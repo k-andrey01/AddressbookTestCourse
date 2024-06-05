@@ -22,6 +22,7 @@ public class CreateGroupTest extends TestBase {
             before.withAdded(group.withId(after.stream().mapToInt(g -> g.getId()).max().getAsInt()))));
   }
 
+  //тест с отрицательным результатом
   @Test
   public void testBadGroupCreation() {
     app.getNavigationHelper().goToGroupPage();

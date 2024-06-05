@@ -18,7 +18,7 @@ public class HelperBase {
 
     protected void type(By locator, String text) {
         click(locator);
-        if (text != null){
+        if (text != null) {
             String existingText = driver.findElement(locator).getAttribute("value");
             if (!existingText.equals(text)) {
                 driver.findElement(locator).clear();
@@ -27,11 +27,11 @@ public class HelperBase {
         }
     }
 
-    public boolean isAlertPresent(){
-        try{
+    public boolean isAlertPresent() {
+        try {
             driver.switchTo().alert();
             return true;
-        } catch (NoAlertPresentException e){
+        } catch (NoAlertPresentException e) {
             return false;
         }
     }
@@ -40,7 +40,7 @@ public class HelperBase {
         try {
             driver.findElement(locator);
             return true;
-        } catch (NoSuchElementException ex){
+        } catch (NoSuchElementException ex) {
             return false;
         }
     }

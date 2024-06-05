@@ -1,31 +1,33 @@
 package org.example.tests;
 
 import org.example.model.ContactData;
+import org.example.model.Contacts;
+import org.junit.Before;
 import org.junit.Test;
-import org.testng.Assert;
 
-import java.util.List;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.CoreMatchers.equalTo;
 
-public class DeleteContactTest extends TestBase{
+public class DeleteContactTest extends TestBase {
+
+
+    @Before
+    public void ensurePreconditions() {
+        app.getNavigationHelper().goToHomePage();
+        if (!app.getContactHelper().isWhereAContact()) {
+            app.getContactHelper().createContact(new ContactData().withFirstName("test1"), true);
+        }
+    }
 
     @Test
-    public void testDeleteGroup(){
-        app.getNavigationHelper().goToHomePage();
+    public void testDeleteGroup() {
+        Contacts before = app.getContactHelper().getAllContacts();
 
-        if (!app.getContactHelper().isWhereAContact()){
-            app.getContactHelper().createContact(new ContactData("user1", "test", "user", "Казань Гвардейская 14 127", "кre@we.re", "89324511903", "group3"), true);
-        }
-        List<ContactData> before = app.getContactHelper().getContactList();
+        ContactData deletedContact = before.iterator().next();
+        app.getContactHelper().deleteContact(deletedContact);
+        assertThat(app.getContactHelper().getContactCount(), equalTo(before.size() - 1));
 
-        app.getContactHelper().selectContact(before.size() - 1);
-        app.getContactHelper().deleteSelectedContacts();
-        app.getContactHelper().closeAlertDeletion();
-
-        app.getNavigationHelper().goToHomePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
-        Assert.assertEquals(after.size(), before.size() - 1);
-
-        before.remove(before.size() - 1);
-        Assert.assertEquals(before, after);
+        Contacts after = app.getContactHelper().getAllContacts();
+        assertThat(after, equalTo(before.without(deletedContact)));
     }
 }
