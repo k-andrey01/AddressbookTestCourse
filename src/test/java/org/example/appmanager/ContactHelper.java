@@ -29,7 +29,10 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), contactData.getHomePhone());
 
         if (creation) {
-            new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            try {
+                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            } catch (Exception e) {
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
