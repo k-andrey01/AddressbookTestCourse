@@ -20,6 +20,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("middlename"), contactData.getMiddleName());
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("address"), contactData.getAddress());
+        type(By.name("address2"), contactData.getAddress2());
         type(By.name("email"), contactData.getEmail());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
@@ -114,8 +115,9 @@ public class ContactHelper extends HelperBase {
             String firstname = cells.get(2).getText();
             String allPhones = cells.get(5).getText();
             String allEmails = cells.get(4).getText();
+            String allAddresses = cells.get(3).getText();
             contactCache.add(new ContactData().withId(id).withFirstName(firstname).withLastName(lastname)
-                    .withAllPhones(allPhones).withAllEmails(allEmails));
+                    .withAllPhones(allPhones).withAllEmails(allEmails).withAllAddresses(allAddresses));
         };
         return new Contacts(contactCache);
     }
@@ -130,10 +132,13 @@ public class ContactHelper extends HelperBase {
         String email = driver.findElement(By.name("email")).getAttribute("value");
         String email2 = driver.findElement(By.name("email2")).getAttribute("value");
         String email3 = driver.findElement(By.name("email3")).getAttribute("value");
+        String address = driver.findElement(By.name("address")).getAttribute("value");
+        String address2 = driver.findElement(By.name("address2")).getAttribute("value");
         driver.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstName(firstName).withLastName(lastname)
                 .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
-                .withEmail(email).withEmail2(email2).withEmail3(email3);
+                .withEmail(email).withEmail2(email2).withEmail3(email3)
+                .withAddress(address).withAddress2(address2);
     }
 
     private void initContactModificationById(int id) {
