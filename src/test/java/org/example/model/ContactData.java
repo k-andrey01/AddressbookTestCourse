@@ -1,5 +1,6 @@
 package org.example.model;
 
+import java.io.File;
 import java.util.Objects;
 
 public class ContactData {
@@ -21,6 +22,8 @@ public class ContactData {
     private String address2;
     private String allAddresses;
     private String fullInfo;
+
+    private File photo;
 
     public String getFirstName() {
         return firstName;
@@ -88,6 +91,15 @@ public class ContactData {
 
     public String getFullInfo() {
         return fullInfo;
+    }
+
+    public File getPhoto() {
+        return photo;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
     }
 
     public ContactData withFullInfo(String fullInfo) {
