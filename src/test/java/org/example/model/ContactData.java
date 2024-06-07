@@ -20,6 +20,7 @@ public class ContactData {
     private String allEmails;
     private String address2;
     private String allAddresses;
+    private String fullInfo;
 
     public String getFirstName() {
         return firstName;
@@ -83,6 +84,15 @@ public class ContactData {
 
     public String getAllAddresses() {
         return allAddresses;
+    }
+
+    public String getFullInfo() {
+        return fullInfo;
+    }
+
+    public ContactData withFullInfo(String fullInfo) {
+        this.fullInfo = fullInfo;
+        return this;
     }
 
     public ContactData withAddress2(String address2) {

@@ -144,6 +144,20 @@ public class ContactHelper extends HelperBase {
                 .withAddress(address).withAddress2(address2);
     }
 
+    public ContactData infoFromFullForm(ContactData contact) {
+        watchFullInfoById(contact.getId());
+        String fullInfo = driver.findElement(By.id("content")).getText();
+        driver.navigate().back();
+        return new ContactData().withId(contact.getId()).withFullInfo(fullInfo);
+    }
+
+    private void watchFullInfoById(int id) {
+        WebElement checkbox = driver.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+        WebElement row = checkbox.findElement(By.xpath("./../.."));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(6).findElement(By.tagName("a")).click();
+    }
+
     private void initContactModificationById(int id) {
         WebElement checkbox = driver.findElement(By.cssSelector(String.format("input[value='%s']", id)));
         WebElement row = checkbox.findElement(By.xpath("./../.."));
