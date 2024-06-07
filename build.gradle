@@ -16,6 +16,7 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:4.21.0'
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'org.hamcrest:hamcrest:2.2'
+    implementation 'com.beust:jcommander:1.82'
 }
 
 test {
