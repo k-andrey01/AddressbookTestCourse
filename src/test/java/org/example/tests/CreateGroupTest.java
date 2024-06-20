@@ -9,6 +9,8 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.Collection;
@@ -62,6 +64,7 @@ public class CreateGroupTest extends TestBase {
 
   @Test
   public void testGroupCreation() {
+
     app.getNavigationHelper().goToGroupPage();
     Groups before = app.getGroupHelper().getAllGroups();
 
