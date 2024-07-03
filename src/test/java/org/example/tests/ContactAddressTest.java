@@ -1,10 +1,7 @@
 package org.example.tests;
 
 import org.example.model.ContactData;
-import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import org.testng.annotations.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;

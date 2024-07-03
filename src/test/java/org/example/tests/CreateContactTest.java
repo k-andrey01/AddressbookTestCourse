@@ -2,8 +2,7 @@ package org.example.tests;
 
 import org.example.model.ContactData;
 import org.example.model.Contacts;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.io.File;
 

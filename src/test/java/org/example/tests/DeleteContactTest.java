@@ -2,8 +2,8 @@ package org.example.tests;
 
 import org.example.model.ContactData;
 import org.example.model.Contacts;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -11,7 +11,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 public class DeleteContactTest extends TestBase {
 
 
-    @Before
+    @BeforeMethod
     public void ensurePreconditions() {
         app.getNavigationHelper().goToHomePage();
         if (!app.getContactHelper().isWhereAContact()) {

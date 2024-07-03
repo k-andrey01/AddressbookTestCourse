@@ -1,7 +1,7 @@
 package org.example.tests;
 
 import org.example.model.ContactData;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
