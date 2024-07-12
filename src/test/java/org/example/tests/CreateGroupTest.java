@@ -24,8 +24,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CreateGroupTest extends TestBase {
 
-  Logger logger = LoggerFactory.getLogger(CreateGroupTest.class);
-
   @DataProvider
   public Iterator<Object[]> validGroupsFromXml() throws IOException {
     try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/groups.xml")))){

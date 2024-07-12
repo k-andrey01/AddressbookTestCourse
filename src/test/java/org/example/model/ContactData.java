@@ -1,24 +1,40 @@
 package org.example.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 import java.util.Objects;
 
+@XStreamAlias("contact")
 public class ContactData {
 
-    private int id;
+    @XStreamOmitField
+    private int id = Integer.MAX_VALUE;
+    @Expose
     private String firstName;
     private String middleName;
+    @Expose
     private String lastName;
+    @Expose
     private String address;
+    @Expose
     private String email;
+    @Expose
     private String email2;
+    @Expose
     private String email3;
+    @Expose
     private String mobilePhone;
+    @Expose
     private String workPhone;
     private String group;
+    @Expose
     private String homePhone;
     private String allPhones;
     private String allEmails;
+    @Expose
     private String address2;
     private String allAddresses;
     private String fullInfo;
