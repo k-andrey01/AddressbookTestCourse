@@ -23,5 +23,6 @@
         <property name="hbm2ddl.auto">validate</property>
         <!--  Names the annotated entity class  -->
         <mapping class="org.example.model.GroupData"/>
+        <mapping class="org.example.model.ContactData"/>
     </session-factory>
 </hibernate-configuration>

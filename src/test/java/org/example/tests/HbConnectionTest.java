@@ -1,5 +1,6 @@
 package org.example.tests;
 
+import org.example.model.ContactData;
 import org.example.model.GroupData;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,6 +10,8 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class HbConnectionTest {
@@ -19,9 +22,17 @@ public class HbConnectionTest {
     public void testHbConnection(){
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<GroupData> result = session.createQuery("from GroupData").list();
-        for (GroupData group: result){
-            System.out.println(group);
+
+        Date startDate = Date.valueOf("0001-01-01");
+        Date endDate = Date.valueOf(LocalDate.now().plusDays(1));
+
+        // Используем запрос с BETWEEN для проверки диапазона дат
+        List<ContactData> result = session.createQuery("from ContactData where deprecated between :startDate and :endDate", ContactData.class)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .list();
+        for (ContactData contact: result){
+            System.out.println(contact);
         }
         session.getTransaction().commit();
         session.close();
