@@ -70,12 +70,12 @@ public class GroupData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupData groupData = (GroupData) o;
-        return id == groupData.id && Objects.equals(groupName, groupData.groupName);
+        return id == groupData.id && Objects.equals(groupName, groupData.groupName) && Objects.equals(header, groupData.header) && Objects.equals(footer, groupData.footer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, groupName);
+        return Objects.hash(id, groupName, header, footer);
     }
 
     @Override
