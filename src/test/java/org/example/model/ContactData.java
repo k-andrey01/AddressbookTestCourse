@@ -8,7 +8,9 @@ import org.hibernate.annotations.Type;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -22,6 +24,7 @@ public class ContactData {
     @Expose
     @Column(name = "firstname")
     private String firstName;
+    @Expose
     @Column(name = "middlename")
     private String middleName;
     @Expose
@@ -45,8 +48,6 @@ public class ContactData {
     @Expose
     @Column(name = "work")
     private String workPhone;
-    @Transient
-    private String group;
     @Expose
     @Column(name = "home")
     private String homePhone;
@@ -65,6 +66,10 @@ public class ContactData {
     private String photo;
     @Column(name = "deprecated")
     private Date deprecated;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     public String getFirstName() {
         return firstName;
@@ -90,9 +95,6 @@ public class ContactData {
         return mobilePhone;
     }
 
-    public String getGroup() {
-        return group;
-    }
 
     public int getId() {
         return id;
@@ -136,6 +138,10 @@ public class ContactData {
 
     public File getPhoto() {
         return new File(photo);
+    }
+
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     public ContactData withPhoto(File photo) {
@@ -218,11 +224,6 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-
     public ContactData withHomePhone(String homePhone) {
         this.homePhone = homePhone;
         return this;
@@ -235,6 +236,15 @@ public class ContactData {
                 ", firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", email2='" + email2 + '\'' +
+                ", email3='" + email3 + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", workPhone='" + workPhone + '\'' +
+                ", homePhone='" + homePhone + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", groups=" + groups +
                 '}';
     }
 
@@ -243,11 +253,16 @@ public class ContactData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactData that = (ContactData) o;
-        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName);
+        return id == that.id && Objects.equals(firstName, that.firstName) && Objects.equals(middleName, that.middleName) && Objects.equals(lastName, that.lastName) && Objects.equals(address, that.address) && Objects.equals(email, that.email) && Objects.equals(email2, that.email2) && Objects.equals(email3, that.email3) && Objects.equals(mobilePhone, that.mobilePhone) && Objects.equals(workPhone, that.workPhone) && Objects.equals(homePhone, that.homePhone) && Objects.equals(address2, that.address2) && Objects.equals(groups, that.groups);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, middleName, lastName);
+        return Objects.hash(id, firstName, middleName, lastName, address, email, email2, email3, mobilePhone, workPhone, homePhone, address2, groups);
+    }
+
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
     }
 }

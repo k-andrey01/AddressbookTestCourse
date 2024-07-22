@@ -1,6 +1,7 @@
 package org.example.appmanager;
 
 import org.example.model.ContactData;
+import org.example.model.Contacts;
 import org.example.model.GroupData;
 import org.example.model.Groups;
 import org.hibernate.Session;
@@ -31,10 +32,27 @@ public class DbHelper {
         Date startDate = Date.valueOf("0001-01-01");
         Date endDate = Date.valueOf(LocalDate.now().plusDays(1));
 
-        // Используем запрос с BETWEEN для проверки диапазона дат
         List<GroupData> result = session.createQuery("from GroupData").list();
         session.getTransaction().commit();
         session.close();
         return new Groups(result);
+    }
+
+    public Contacts getContacts() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        Date startDate = Date.valueOf("0001-01-01");
+        Date endDate = Date.valueOf(LocalDate.now().plusDays(1));
+
+        List<ContactData> result = session.createQuery("from ContactData where deprecated not between :startDate and :endDate", ContactData.class)
+                .setParameter("startDate", startDate)
+                .setParameter("endDate", endDate)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+
+        return new Contacts(result);
     }
 }

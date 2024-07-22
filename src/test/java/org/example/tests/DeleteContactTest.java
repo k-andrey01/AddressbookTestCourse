@@ -13,21 +13,21 @@ public class DeleteContactTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.getNavigationHelper().goToHomePage();
-        if (!app.getContactHelper().isWhereAContact()) {
+        if (app.getDbHelper().getContacts().size() == 0){
+            app.getNavigationHelper().goToHomePage();
             app.getContactHelper().createContact(new ContactData().withFirstName("test1"), true);
         }
     }
 
     @Test
     public void testDeleteGroup() {
-        Contacts before = app.getContactHelper().getAllContacts();
+        Contacts before = app.getDbHelper().getContacts();
 
         ContactData deletedContact = before.iterator().next();
         app.getContactHelper().deleteContact(deletedContact);
         assertThat(app.getContactHelper().getContactCount(), equalTo(before.size() - 1));
 
-        Contacts after = app.getContactHelper().getAllContacts();
+        Contacts after = app.getDbHelper().getContacts();
         assertThat(after, equalTo(before.without(deletedContact)));
     }
 }

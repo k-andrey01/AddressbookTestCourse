@@ -1,6 +1,7 @@
 [
   {
     "firstName": "Name0",
+    "middleName": "MiddleName0",
     "lastName": "Surname0",
     "address": "Address0",
     "email": "mail0@mail.ru",
@@ -13,6 +14,7 @@
   },
   {
     "firstName": "Name1",
+    "middleName": "MiddleName1",
     "lastName": "Surname1",
     "address": "Address1",
     "email": "mail1@mail.ru",
@@ -25,6 +27,7 @@
   },
   {
     "firstName": "Name2",
+    "middleName": "MiddleName2",
     "lastName": "Surname2",
     "address": "Address2",
     "email": "mail2@mail.ru",

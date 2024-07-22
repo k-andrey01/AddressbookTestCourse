@@ -26,16 +26,20 @@ public class HbConnectionTest {
         Date startDate = Date.valueOf("0001-01-01");
         Date endDate = Date.valueOf(LocalDate.now().plusDays(1));
 
-        // Используем запрос с BETWEEN для проверки диапазона дат
-        List<ContactData> result = session.createQuery("from ContactData where deprecated between :startDate and :endDate", ContactData.class)
+        List<ContactData> result = session.createQuery("from ContactData where deprecated not between :startDate and :endDate", ContactData.class)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .list();
-        for (ContactData contact: result){
-            System.out.println(contact);
-        }
+
         session.getTransaction().commit();
         session.close();
+
+        for (ContactData contact: result){
+            System.out.println("----------------------------------");
+            System.out.println(contact);
+            System.out.println(contact.getGroups());
+            System.out.println("----------------------------------");
+        }
     }
 
     @BeforeClass

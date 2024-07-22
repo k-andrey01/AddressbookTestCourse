@@ -13,20 +13,20 @@ public class DeleteGroupTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.getNavigationHelper().goToGroupPage();
-        if (!app.getGroupHelper().isWhereAGroup()) {
+        if (app.getDbHelper().getGroups().size() == 0){
             app.getGroupHelper().createGroup(new GroupData().withGroupName("test1"));
         }
     }
 
     @Test
     public void testDeleteGroup() {
-        Groups before = app.getGroupHelper().getAllGroups();
+        Groups before = app.getDbHelper().getGroups();
 
         GroupData deletedGroup = before.iterator().next();
         app.getGroupHelper().deleteGroup(deletedGroup);
         assertThat(app.getGroupHelper().getGroupCount(), equalTo(before.size() - 1));
 
-        Groups after = app.getGroupHelper().getAllGroups();
+        Groups after = app.getDbHelper().getGroups();
         assertThat(after, equalTo(before.without(deletedGroup)));
     }
 
