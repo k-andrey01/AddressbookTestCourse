@@ -2,6 +2,7 @@ package org.example.appmanager;
 
 import org.example.model.ContactData;
 import org.example.model.Contacts;
+import org.example.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -80,6 +81,14 @@ public class ContactHelper extends HelperBase {
 
     private void selectContactById(int id) {
         driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
+    }
+
+    private void selectGroupById(int id){
+        driver.findElement(By.name("to_group")).click();
+        {
+            WebElement dropdown = driver.findElement(By.name("to_group"));
+            dropdown.findElement(By.cssSelector("option[value ='" + id + "']")).click();
+        }
     }
 
     public void modifyContact(ContactData contact) {
@@ -164,5 +173,15 @@ public class ContactHelper extends HelperBase {
         WebElement row = checkbox.findElement(By.xpath("./../.."));
         List<WebElement> cells = row.findElements(By.tagName("td"));
         cells.get(7).findElement(By.tagName("a")).click();
+    }
+
+    public void addContactToGroup(ContactData addingToGroupContact, GroupData groupToAdding) {
+        selectContactById(addingToGroupContact.getId());
+        selectGroupById(groupToAdding.getId());
+        addContactToSelectedGroup();
+    }
+
+    private void addContactToSelectedGroup() {
+        click(By.name("add"));
     }
 }
