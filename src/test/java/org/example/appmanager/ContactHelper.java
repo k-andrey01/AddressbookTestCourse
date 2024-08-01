@@ -91,6 +91,14 @@ public class ContactHelper extends HelperBase {
         }
     }
 
+    private void selectGroupByIdFilter(int id){
+        driver.findElement(By.name("group")).click();
+        {
+            WebElement dropdown = driver.findElement(By.name("group"));
+            dropdown.findElement(By.cssSelector("option[value ='" + id + "']")).click();
+        }
+    }
+
     public void modifyContact(ContactData contact) {
         selectContactById(contact.getId());
         initContactModification();
@@ -183,5 +191,15 @@ public class ContactHelper extends HelperBase {
 
     private void addContactToSelectedGroup() {
         click(By.name("add"));
+    }
+
+    public void delContactFromGroup(ContactData contactForDeletionFromGroup, GroupData groupForContactDeleting) {
+        selectGroupByIdFilter(groupForContactDeleting.getId());
+        selectContactById(contactForDeletionFromGroup.getId());
+        deleteContactFromGroup();
+    }
+
+    private void deleteContactFromGroup() {
+        click(By.name("remove"));
     }
 }

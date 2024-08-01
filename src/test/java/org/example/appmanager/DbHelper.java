@@ -29,13 +29,31 @@ public class DbHelper {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
 
-        Date startDate = Date.valueOf("0001-01-01");
-        Date endDate = Date.valueOf(LocalDate.now().plusDays(1));
-
         List<GroupData> result = session.createQuery("from GroupData").list();
+
         session.getTransaction().commit();
         session.close();
         return new Groups(result);
+    }
+
+    public Contacts getContactsViaGroup(int groupId){
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+//        List<GroupData> groupForContactDeleting = session.createQuery("from GroupData where id = :id", GroupData.class)
+//                .setParameter("id", groupId)
+//                .list();
+//        List<ContactData> result = session.createQuery("from ContactData where groups in :group", ContactData.class)
+//                .setParameter("group", groupForContactDeleting.get(0))
+//                .list();
+        List<ContactData> result = session.createQuery(
+                        "select c from ContactData c join c.groups g where g.id = :groupId", ContactData.class)
+                .setParameter("groupId", groupId)
+                .list();
+
+        session.getTransaction().commit();
+        session.close();
+        return new Contacts(result);
     }
 
     public Contacts getContacts() {

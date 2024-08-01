@@ -33,11 +33,9 @@ public class AddContactToGroupTest extends TestBase {
         GroupData groupToAdding = groups.iterator().next();
         ContactData contact = addingToGroupContact.inGroup(groupToAdding);
         app.getContactHelper().addContactToGroup(addingToGroupContact, groupToAdding);
+
         Contacts after = app.getDbHelper().getContacts();
         assertThat(after.size(), equalTo(before.size()));
-//        System.out.println(before.without(addingToGroupContact).withAdded(contact));
-//        System.out.println("==================");
-//        System.out.println(after);
 
         assertThat(after, equalTo(before.without(addingToGroupContact).withAdded(contact)));
     }
